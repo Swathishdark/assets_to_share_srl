@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Section</title>
+  <style>
+    /* CSS Reset */
+    * {
+      margin: 5px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Rubik, sans-serif;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+      font-size: 12px; /* Reduced font size */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -20px; /* Move container a bit to the top */
+    }
+
+    .input-panel {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .input-panel input {
+      margin: 0 5px;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .input-panel input.error {
+      border: 2px solid red;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap; /* Ensure no wrapping */
+      gap: 10px; /* Reduced gap between buttons */
+      flex-direction: row; /* Align buttons in a row */
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(0, 66, 70, 0.7); /* Opacity adjusted */
+      border-radius: 10px;
+      padding: 5px; /* Reduced padding */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      width: 200px; /* Reduced width for all buttons */
+      font-size: 10px; /* Reduced font size */
+    }
+
+    .main-btn {
+      position: relative;
+      height: 175px; /* Reduced height */
+      width: 175px; /* Reduced width */
+      margin: 0 auto;
+      border: none;
+      border-radius: 10px;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .main-btn img {
+      max-width: 102.5%;
+      max-height: 102.5%;
+      margin-top: -20px;
+    }
+
+    .submenu-button {
+      padding: 8.5px; /* Reduced padding */
+      border-radius: 5px;
+      background-color: #004642;
+      color: #2df8c5;
+      border: none;
+      font-size: 10px; /* Reduced font size */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      width: calc(100% - 10px); /* Adjusted width */
+    }
+
+    .submenu-button:hover {
+      background-color: #07634C;
+      color: #ffffff;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px 2px rgba(45, 248, 197, 0.75); /* Glowing effect */
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px; /* Reduced gap */
+      width: 100%;
+    }
+
+    .whatsapp-btn {
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #25D366;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      width: 30px; /* Reduced width */
+      height: 30px; /* Reduced height */
+    }
+
+    .whatsapp-btn img {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Error and animation styles */
+    .error {
+      border: 2px solid red;
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-5px);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+    }
+
+    .shake {
+      animation: shake 0.5s;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="input-panel">
+    <input type="text" id="learnerName" placeholder="Learner’s Name">
+    <input type="text" id="learnerNumber" placeholder="Learner’s Number">
+  </div>
+  <div class="buttons">
+    <!-- FSD - Premium button -->
+    <div class="button-container">
+      <div class="main-btn-container">
+        <button class="main-btn" data-program-name="FSD" onclick="sendClickDataToGAS('FSD')">
+          <img src="https://directus.crio.do/assets/1e6bb25d-21d2-43e8-a7ae-c605cca1d240.webp" alt="FSD - Full Stack">
+        </button>
+        <div class="button-row">
+          <a href="https://rebrand.ly/crio-profile-fitment-form" class="submenu-button" id="main-button-FSD-PFF">Profile Fitment Form</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="It was a pleasure speaking with you earlier today. Here is the Profile Fitment form. Please ensure you fill it at your earliest convenience, so that we can better understand how to serve you better.\nLink: https://rebrand.ly/crio-profile-fitment-form\nShould you have any questions or require further assistance, please don't hesitate to reach out to me." id="whatsapp-button-FSD-PFF">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://drive.google.com/file/d/1ToDkXfLSTd0P2hkuahaWmzPoZfStaDbD/view" class="submenu-button" id="main-button-FSD-Brochure">Brochure</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Following up on our conversation, I wanted to share a little more detail about the program we discussed.\nYou can check out the curriculum of the *Fellowship Program in Full Stack Development (FSD)* here: https://drive.google.com/file/d/1ToDkXfLSTd0P2hkuahaWmzPoZfStaDbD/view.\nThis will give you a detailed understanding of all the concepts you will master throughout your learning journey at Crio.\nIf you have any questions on this, feel free to reach out to me." id="whatsapp-button-FSD-Brochure">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/learn/portfolio/full-stack/?name=Crio%20Demo" class="submenu-button" id="main-button-FSD-Portfolio">Portfolio</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Your journey at Crio does not end with just building projects. Simultaneously you will be building a rockstar portfolio to impress recruiters and land your dream job.\nHere’s how your portfolio will look like soon: https://www.crio.do/learn/portfolio/qa-masters/?name={LEARNER_NAME_PLACEHOLDER}" id="whatsapp-button-FSD-Portfolio">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/magic/odt-sf-software-development" class="submenu-button" id="main-button-FSD-Webinar">On-Demand Session</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="We are pleased to offer you a chance to attend a exclusive trial session led by a Senior Software Development Engineer II at Microsoft. This session is designed for those aiming to excel as an SDE (Software Development Engineer).\n\nWhat’s in Store for You:\n◉ Career Planning: Receive personalized career guidance from top industry experts.\n◉ Hands-on Project Work: Gain practical experience working on real-world scenarios from companies like Flipkart, Netflix, and Amazon.\n◉ Exclusive Access to Experts: Interact with seasoned professionals from top companies such as Microsoft, Uber, and Google.\n\nThis is a unique opportunity to jumpstart your career and learn from one of the best in the industry.\n\nJoin Now: https://www.crio.do/magic/odt-sf-software-development\n\nIf you have any questions, feel free to reach out to me.\n" id="whatsapp-button-FSD-On-Demand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- QA Automation button -->
+    <div class="button-container">
+      <div class="main-btn-container">
+        <button class="main-btn" data-program-name="QA Automation" onclick="sendClickDataToGAS('QA Automation')">
+            <img src="https://directus.crio.do/assets/85fdff1c-8032-491c-9ab5-527ad59dd815.webp" alt="QA Automation">
+        </button>
+        <div class="button-row">
+          <a href="https://rebrand.ly/crio-profile-fitment-form" class="submenu-button" id="main-button-QA-PFF">Profile Fitment Form</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="It was a pleasure speaking with you earlier today. Here is the Profile Fitment form. Please ensure you fill it at your earliest convenience, so that we can better understand how to serve you better.\nLink: https://rebrand.ly/crio-profile-fitment-form\nShould you have any questions or require further assistance, please don't hesitate to reach out to me." id="whatsapp-button-QA-PFF">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://drive.google.com/file/d/1LJTGe_mtrcQuOy0U3RB8QD3SUfPTUwWN/view" class="submenu-button" id="main-button-QA-Brochure">Brochure</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Following up on our conversation, I wanted to share a little more detail about the program we discussed.\nYou can check out the curriculum of the *Fellowship Program in QA Automation (SDET)* here: https://drive.google.com/file/d/1LJTGe_mtrcQuOy0U3RB8QD3SUfPTUwWN/view.\nThis will give you a detailed understanding of all the concepts you will master throughout your learning journey at Crio.\nIf you have any questions on this, feel free to reach out to me." id="whatsapp-button-QA-Brochure">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/learn/portfolio/qa-masters/?name=Crio%20Demo" class="submenu-button" id="main-button-QA-Portfolio">Portfolio</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Your journey at Crio does not end with just building projects. Simultaneously you will be building a rockstar portfolio to impress recruiters and land your dream job.\nHere’s how your portfolio will look like soon: https://www.crio.do/learn/portfolio/qa-masters/?name={LEARNER_NAME_PLACEHOLDER}" id="whatsapp-button-QA-Portfolio">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/magic/odt-sf-qa-automation" class="submenu-button" id="main-button-QA-Webinar">On-Demand Session</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="You're invited to a exclusive trial session with a Technical Program Manager at Walmart with over 12 years of experience. \nThis session is tailored to help you launch a successful career as an SDET (Software Development Engineer in Test).\n\nWhat You’ll Learn:\n◉ Personalized Career Guidance: Create your career plan with expert advice.\n◉ Hands-on Experience: Get practical experience working on projects for top companies like Flipkart, Netflix, and Amazon.\n◉ Industry Expert Interaction: Engage directly with professionals from leading tech firms such as Microsoft, Uber, and Google.\nSeize this chance to accelerate your career growth with direct mentorship and practical knowledge.\n\nJoin Now: https://www.crio.do/magic/odt-sf-qa-automation\n\nIf you have any questions, feel free to reach out to me.\n" id="whatsapp-button-QA-On-Demand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- System Design button -->
+    <div class="button-container">
+      <div class="main-btn-container">
+        <button class="main-btn" data-program-name="System Design" onclick="sendClickDataToGAS('System Design')">
+            <img src="https://directus.crio.do/assets/c1f3a8a7-928a-4ba6-944c-f1bcb9ee7baf.webp" alt="System Design">
+        </button>
+        <div class="button-row">
+          <a href="https://rebrand.ly/crio-profile-fitment-form" class="submenu-button" id="main-button-System-Design-PFF">Profile Fitment Form</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="It was a pleasure speaking with you earlier today. Here is the Profile Fitment form. Please ensure you fill it at your earliest convenience, so that we can better understand how to serve you better.\nLink: https://rebrand.ly/crio-profile-fitment-form\nShould you have any questions or require further assistance, please don't hesitate to reach out to me." id="whatsapp-button-System-Design-PFF">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://drive.google.com/file/d/1uklVJPrVnKrEQv_lOYyXAdYpd8HhErN6/view" class="submenu-button" id="main-button-System-Design-Brochure">Brochure</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Following up on our conversation, I wanted to share a little more detail about the program we discussed.\nYou can check out the curriculum of the *Fellowship Program in System Design* here: https://drive.google.com/file/d/1uklVJPrVnKrEQv_lOYyXAdYpd8HhErN6/view.\nThis will give you a detailed understanding of all the concepts you will master throughout your learning journey at Crio.\nIf you have any questions on this, feel free to reach out to me." id="whatsapp-button-System-Design-Brochure">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Accelerate SD button -->
+    <div class="button-container">
+      <div class="main-btn-container">
+        <button class="main-btn" data-program-name="Accelerate-SD" onclick="sendClickDataToGAS('Accelerate-SD')">
+            <img src="https://directus.crio.do/assets/38b760e9-e751-4c26-8751-54cc206f66a1.webp" alt="Accelerate-SD">
+        </button>
+        <div class="button-row">
+          <a href="https://rebrand.ly/crio-profile-fitment-form" class="submenu-button" id="main-button-Accelerate-SD-PFF">Profile Fitment Form</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="It was a pleasure speaking with you earlier today. Here is the Profile Fitment form. Please ensure you fill it at your earliest convenience, so that we can better understand how to serve you better.\nLink: https://rebrand.ly/crio-profile-fitment-form\nShould you have any questions or require further assistance, please don't hesitate to reach out to me." id="whatsapp-button-Accelerate-SD-PFF">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://drive.google.com/file/d/1VhqrNpmIgl-diyCAfyC-qpV6kASf8quQ/view" class="submenu-button" id="main-button-Accelerate-SD-Brochure">Brochure</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Following up on our conversation, I wanted to share a little more detail about the program we discussed.\nYou can check out the curriculum of the *Accelerate Program in Software Development* here: https://drive.google.com/file/d/1VhqrNpmIgl-diyCAfyC-qpV6kASf8quQ/view \nThis will give you a detailed understanding of all the concepts you will master throughout your learning journey at Crio.\nIf you have any questions on this, feel free to reach out to me." id="whatsapp-button-Accelerate-SD-Brochure">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Data Analytics button -->
+    <div class="button-container">
+      <div class="main-btn-container">
+        <button class="main-btn" data-program-name="Data Analytics" onclick="sendClickDataToGAS('Data Analytics')">
+            <img src="https://directus.crio.do/assets/e0eeb9d0-6292-4ce2-acdb-fa9f6d92735a.webp" alt="Data Analytics">
+        </button>
+        
+        <div class="button-row">
+          <a href="https://rebrand.ly/crio-profile-fitment-form" class="submenu-button" id="main-button-DA-PFF">Profile Fitment Form</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="It was a pleasure speaking with you earlier today. Here is the Profile Fitment form. Please ensure you fill it at your earliest convenience, so that we can better understand how to serve you better.\nLink: https://rebrand.ly/crio-profile-fitment-form\nShould you have any questions or require further assistance, please don't hesitate to reach out to me." id="whatsapp-button-DA-PFF">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/magic/da-brochure" class="submenu-button" id="main-button-Data-Analytics-Brochure">Brochure</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Following up on our conversation, I wanted to share a little more detail about the program we discussed.\nYou can check out the curriculum of the *Fellowship Program in NextGen Data Analytics with AI here: https://www.crio.do/magic/da-brochure.\nThis will give you a detailed understanding of all the concepts you will master throughout your learning journey at Crio.\nIf you have any questions on this, feel free to reach out to me." id="whatsapp-button-Data-Analytics-Brochure">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/learn/portfolio/data-analytics/?name=Crio%20Beaver" class="submenu-button" id="main-button-DA-Portfolio">Portfolio</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="Your journey at Crio does not end with just analysing work-like data. \nSimultaneously you will be building a rockstar portfolio to impress recruiters and land your dream job.\nHere’s how your portfolio will look like soon: https://www.crio.do/learn/portfolio/data-analytics/?name={LEARNER_NAME_PLACEHOLDER}" id="whatsapp-button-DA-Portfolio">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+        <div class="button-row">
+          <a href="https://www.crio.do/magic/odt-sf-ai-data-analytics" class="submenu-button" id="main-button-QA-Webinar">On-Demand Session</a>
+          <a href="#" class="whatsapp-btn" onclick="sendWhatsApp(event, this)" data-text="We’re excited to invite you to our free trial session led by Kiran Suresh, a founding team member of Crio.Do and former Motorola expert. In this hands-on session, you'll gain invaluable insights into building your career as a Data Analytics Professional.\n\nWhy Attend?\n◉ Personalized Career Plan: Get a customized roadmap to advance in the data analytics field.\n◉ Hands-on Experience: Work on projects similar to those at top companies like Flipkart, Netflix, and Amazon.\nDon’t miss this opportunity to interact with industry experts and gain practical knowledge that can propel your career forward.\n\nJoin Now: https://www.crio.do/magic/odt-sf-ai-data-analytics\n\nIf you have any questions, feel free to reach out to me.\n" id="whatsapp-button-DA-On-Demand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function sendWhatsApp(event, button) {
+    event.preventDefault();
+    console.log("sendWhatsApp function called");
+    var learnerName = document.getElementById('learnerName').value;
+    var learnerNumber = document.getElementById('learnerNumber').value;
+
+    console.log("Learner Name:", learnerName);
+    console.log("Learner Number:", learnerNumber);
+
+    // Reset previous error states
+    resetErrorState('learnerName');
+    resetErrorState('learnerNumber');
+
+    if (!learnerName || !learnerNumber) {
+        if (!learnerName) triggerErrorState('learnerName');
+        if (!learnerNumber) triggerErrorState('learnerNumber');
+        return;
+    }
+
+    var fullNumber = '+91' + learnerNumber;
+    var text = button.getAttribute('data-text').replace('{LEARNER_NAME_PLACEHOLDER}', learnerName);
+    
+    // Properly encode the message
+    text = encodeURIComponent(text).replace(/%5Cn/g, '%0A');
+
+    console.log("WhatsApp URL:", `https://web.whatsapp.com/send?phone=${fullNumber}&text=${text}`);
+    
+    var url = `https://web.whatsapp.com/send?phone=${fullNumber}&text=${text}`;
+    window.open(url, '_blank');
+
+    // Send data to Google Apps Script for tracking WhatsApp button click
+    sendClickDataToGAS(button.id, learnerName, learnerNumber);
+}
+
+function sendClickDataToGAS(programName, learnerName, learnerNumber) {
+    console.log("sendClickDataToGAS function called with programName:", programName, "learnerName:", learnerName, "learnerNumber:", learnerNumber);
+    let gasUrl = 'https://script.google.com/macros/s/AKfycby8DDGJVxG75lQnDSIyb-8oHhYe9Rm3eVG2ysflX_WhE-_zhKBA-CjnGEGDT3OaLvWk/exec';
+    let queryString = `?action=click&programName=${encodeURIComponent(programName)}&learnerName=${encodeURIComponent(learnerName)}&learnerNumber=${encodeURIComponent(learnerNumber)}`;
+
+    fetch(gasUrl + queryString)
+      .then(response => response.text())
+      .then(result => console.log('GAS response:', result))
+      .catch(error => console.error('Error:', error));
+}
+
+function triggerErrorState(inputId) {
+    var inputElement = document.getElementById(inputId);
+    inputElement.classList.add('error', 'shake');
+    // Remove error state after 0.7 seconds
+    setTimeout(function() {
+        resetErrorState(inputId);
+    }, 700);
+}
+
+function resetErrorState(inputId) {
+    var inputElement = document.getElementById(inputId);
+    inputElement.classList.remove('error', 'shake');
+}
+</script>
+</body>
+</html>
